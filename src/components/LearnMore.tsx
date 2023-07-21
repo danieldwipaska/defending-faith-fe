@@ -10,7 +10,7 @@ export const LearnMore = (): JSX.Element => {
 
       {/* <div className="rounded-full bg-gray-700 text-white mx-4 mt-2 px-5 py-2">Find Your Church</div> */}
       {/* <div className="rounded-full bg-gray-700 text-white mx-4 mt-2 px-5 py-2">Contribute</div> */}
-      <Link to="#">
+      <Link to="/about">
         <div className="rounded-full bg-gray-700 text-white mx-4 mt-2 px-5 py-2">About Us</div>
       </Link>
 

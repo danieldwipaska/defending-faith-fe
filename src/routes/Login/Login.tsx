@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import { useForm } from 'react-hook-form';
+import logoSmall from '../../images/defending-faith-logo-small.png';
 
 export const Login = () => {
   const { register, handleSubmit } = useForm();
@@ -34,12 +35,15 @@ export const Login = () => {
   };
   return (
     <div>
-      <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-3 my-16 px-3 lg:px-0">
-        <div className="col-start-1 bg-gray-500 rounded-xl px-5 py-5">
+      <div className="grid grid-cols-1 lg:grid-cols-3 my-16 px-3 lg:px-0">
+        <div className="col-start-1 lg:col-start-2 bg-gray-300 rounded-xl px-5 py-5">
+          <div className="flex justify-center mt-4">
+            <img src={logoSmall} alt="logo" className="w-20 rounded-full shadow-md" />
+          </div>
           <p className="text-black text-xl text-center mt-4">Defending Faith</p>
           <p className="text-red-700 text-sm text-center mt-4">{err}</p>
           <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="grid grid-cols-4 gap-2 mt-10 ml-4">
+            <div className="grid grid-cols-4 gap-2 mt-6 ml-4">
               <div>
                 <label htmlFor="username">Username</label>
               </div>
@@ -58,7 +62,7 @@ export const Login = () => {
             </div>
             <div className="ml-4 mt-10 mb-4">
               <button
-                className="bg-black text-slate-300 place-items-end rounded-full px-5 py-2"
+                className="bg-yellow-400 text-black place-items-end rounded-full px-5 py-2"
                 type="submit"
                 onClick={() => {
                   setLoginSpin(true);
@@ -66,7 +70,7 @@ export const Login = () => {
                 }}
               >
                 {loginSpin ? (
-                  <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-black inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                     <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                   </svg>

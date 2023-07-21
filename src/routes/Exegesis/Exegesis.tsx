@@ -44,7 +44,7 @@ export const Exegesis = (): JSX.Element => {
                 navigate(`/exegesis/article/${post.postId}`);
               }}
             >
-              <div className="rounded-full bg-black text-white mx-3 pl-5 pr-2 text-left">
+              <div className="rounded-full bg-yellow-400 text-gray-800 mx-3 pl-5 pr-2 text-left">
                 <div className="grid grid-cols-6">
                   <div className="col-span-5 my-2 self-center">
                     <p className="text-base">{post.title}</p>

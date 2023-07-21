@@ -1,14 +1,16 @@
-import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+
 import { parseCreatedAtTime } from '../../funtions/parseDate';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faClose } from '@fortawesome/free-solid-svg-icons';
+import { useAuth } from '../../context/AuthContext';
 
 export const Comment = (props: any): JSX.Element => {
+  const { user } = useAuth();
   const { comments, postId, refetchComment } = props;
   const [comment, setComment] = useState('');
-  const navigate = useNavigate();
-  const location = useLocation();
+  // const [commentIdDelete, setCommentIdDelete] = useState('')
 
   const readComment = (event: any) => {
     setComment(event.target.value);
@@ -37,11 +39,29 @@ export const Comment = (props: any): JSX.Element => {
       });
   };
 
+  const handleDelete = (commentId: string) => {
+    const isDelete = window.confirm('Are you sure to delete this comment?');
+    if (!isDelete) return;
+
+    axios
+      .delete(`http://localhost:8800/api/comments/${commentId}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('access-token')}`,
+        },
+      })
+      .then((res) => {
+        refetchComment();
+      })
+      .catch((err) => {
+        return console.log(err);
+      });
+  };
+
   return (
     <div>
-      <p className="mx-7 my-5 text-sm font-medium text-gray-600">{comments?.length} Comment(s)</p>
-      <div className="grid grid-cols-6 mx-7">
-        <div className="col-span-5">
+      <p className="mx-7 lg:mx-10 my-5 text-sm font-medium text-gray-600">{comments?.length} Comment(s)</p>
+      <div className="grid grid-cols-6 mx-7 lg:mx-10">
+        <div className="col-span-5 lg:col-span-2">
           <input required type="text" placeholder="Type your comment" className="px-3 py-2 w-full text-sm border-2 border-gray-400 rounded-lg" onChange={readComment} value={comment} />
         </div>
         <div className="mx-4">
@@ -66,7 +86,19 @@ export const Comment = (props: any): JSX.Element => {
         return (
           <div>
             <p className="mx-8 text-sm text-slate-600 mt-5 mb-2">{comment.username}</p>
-            <p className="mx-16 text-sm text-gray-600">{comment.comment}</p>
+            <div className="flex">
+              <p className="inline mx-16 text-sm text-gray-600">{comment.comment}</p>
+              {user?.username === comment.username ? (
+                <button
+                  onClick={() => {
+                    handleDelete(comment.commentId);
+                  }}
+                >
+                  <FontAwesomeIcon icon={faClose} style={{ color: '#000000' }} />
+                </button>
+              ) : null}
+            </div>
+
             <p className="mx-16 text-xs text-gray-400">{parseCreatedAtTime(comment.createdAt)}</p>
           </div>
         );

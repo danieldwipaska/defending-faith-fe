@@ -11,6 +11,7 @@ import { menu } from './enums/menu';
 import { AuthProvider } from './context/AuthContext';
 import { Login } from './routes/Login/Login';
 import { MyAccount } from './routes/MyAccount/MyAccount';
+import { AboutUs } from './routes/AboutUs/AboutUs';
 
 function App() {
   const client = new QueryClient({
@@ -27,6 +28,7 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/login" element={<Login />} />
               <Route path="/account" element={<MyAccount />} />
+              <Route path="/about" element={<AboutUs />} />
               <Route path={`/${menu.apologetics}`} element={<Apologetics />} />
               <Route path={`/${menu.exegesis}`} element={<Exegesis />} />
               <Route path={`/${menu.dashboard}`} element={<Dashboard />} />
